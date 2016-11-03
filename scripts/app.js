@@ -7,7 +7,7 @@ $(document).on("ready", function() {
   var marker = [];
     // CODE IN HERE!
     var map;
-    var marker = [];
+
     function initMap() {
       var lt = quakeInfo.features[1].geometry.coordinates[0];
       var lg = quakeInfo.features[1].geometry.coordinates[1];
@@ -17,18 +17,14 @@ $(document).on("ready", function() {
         center: {lat: lg, lng: lt},
         zoom: 8});
 
-for (var i = 0; i<quakeInfo.features.length; i++){
+for (var i = 0; i<quakeInfo.features.length-1; i++){
         var place = {lat: quakeInfo.features[i].geometry.coordinates[1], lng: quakeInfo.features[i].geometry.coordinates[0]};
         var hoursAgo = (currentTime-(quakeInfo.features[i].properties.time))/(1000*60*60);
-        marker = new google.maps.Marker({
+         marker = new google.maps.Marker({
             position: place,
             map: map,
-            title: quakeInfo.features[i].properties.title
+            title: quakeInfo.features[i].properties.title+' '+hoursAgo+' hours ago.'
         });
-        var infoWindow = new google.maps.InfoWindow({
-            content: hoursAgo+' hours ago.'
-        });
-        marker.addListener('click', function() {infoWindow.open(map, marker)});
 
       }
     }
